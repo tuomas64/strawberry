@@ -1,0 +1,35 @@
+ module load java/openjdk
+ /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/./run_pipeline.pl -Xms100G -Xmx200G -fork1 -GBSSeqToTagDBPlugin -e ApeKI -i /wrk/tuomas64/DONOTREMOVE/GBS_data -db 384_GBS_new.db -k /wrk/tuomas64/DONOTREMOVE/GBS_data/384_keyfile.txt  -kmerLength 64 -minKmerL 20 -mnQS 20 -mxKmerNum 100000000 -endPlugin -runfork1 gg
+
+ 
+ 
+ /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/./run_pipeline.pl -fork1 -TagExportToFastqPlugin -db /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/384_GBS_new.db -o /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/fastq/384_k1minmer_tagsForAlign.fa.gz -c 3 -endPlugin -runfork1
+ 
+ bwa index /wrk/tuomas64/DONOTREMOVE/Fragaria_new_genome_4.1/F_vesca_V4.1.fasta
+ 
+ bwa index fragaria_vesca_final.fasta
+ 
+ bwa aln -t 4 fragaria_vesca_final.fasta 384_min20Qs_tagsForAlign.fa.gz > tagsForAlign.sai
+ 
+ bwa samse fragaria_vesca_final.fasta tagsForAlign.sai 384_min20Qs_tagsForAlign.fa.gz > tagsForAlign.sam
+ 
+ bwa mem fragaria_vesca_final.fasta /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/fastq/384_k1minmer_tagsForAlign.fa.gz > 384_k1minmer_tagsForAlign.mem.sam
+ 
+ 
+ 
+ 
+ /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/./run_pipeline.pl -Xms10G -Xmx25G -fork1 -SAMToGBSdbPlugin -i 384_k1minmer_tagsForAlign.mem.sam -db /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/384_GBS_new.db -minMAPQ 20 -aProp 0.0 -aLen 0 -endPlugin -runfork1
+ 
+ 
+ 
+ /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/./run_pipeline.pl -Xms512M -Xmx25G -fork1 -DiscoverySNPCallerPluginV2 -db /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/384_GBS4.db -mnLCov 0.1 -sC "Fvb1" -eC "Fvb5" -deleteOldData false -endPlugin -runfork1
+ 
+ ./run_pipeline.pl -fork1 -SNPQualityProfilerPlugin -db 384_GBS4.db -taxa 384_orig_names_newref -statFile "outputStats_6_7.txt" -deleteOldData false -endPlugin -runfork1
+ 
+ /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/./run_pipeline.pl -fork1 -UpdateSNPPositionQualityPlugin -db 384_GBS4.db -qsFile outputStats_6_7.txt -endPlugin -runfork1
+ 
+ /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/./run_pipeline.pl -fork1 -ProductionSNPCallerPluginV2 -db 384_GBS4.db -e ApeKI -i /wrk/tuomas64/DONOTREMOVE/GBS_data/ -k /wrk/tuomas64/DONOTREMOVE/GBS_data/384_keyfile.txt  -kmerLength 64 -mnQS 20 -minPosQS 20 -o 384_new_reference_filtered.vcf -endPlugin -runfork1
+
+ 
+ 
+ 
