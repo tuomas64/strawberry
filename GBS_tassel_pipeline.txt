@@ -1,4 +1,4 @@
- module load java/openjdk
+ 
  /wrk/tuomas64/DONOTREMOVE/distribute_Samias/tassel/./run_pipeline.pl -Xms100G -Xmx200G -fork1 -GBSSeqToTagDBPlugin -e ApeKI -i /wrk/tuomas64/DONOTREMOVE/GBS_data -db 384_GBS_new.db -k /wrk/tuomas64/DONOTREMOVE/GBS_data/384_keyfile.txt  -kmerLength 64 -minKmerL 20 -mnQS 20 -mxKmerNum 100000000 -endPlugin -runfork1 gg
 
  
