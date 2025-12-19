@@ -1,5 +1,5 @@
 These r-scripts were used to analyze the demographic history data of woodland strawberry: 
-"Late Quaternary climatic impact on the woodland strawberry genome: a perennial herb's tale":
+"The Late Quaternary climate impact on the genome of the woodland strawberry (Fragaria vesca), a perennial herb":
 
 https://www.biorxiv.org/content/10.1101/2024.10.09.617376v1
 
