@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+title: Scripts for analyzing population through time in woodland strawberry (Fragaria vesca)
+version: 1.0
+doi: 10.5281/zenodo.17990233
+authors:
+  - family-names: Toivainen
+    given-names: Tuomas
