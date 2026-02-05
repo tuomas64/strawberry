@@ -1,7 +1,7 @@
 These r and python scripts were used to analyze the demographic history data of woodland strawberry: 
 "The Late Quaternary climate impact on the genome of the woodland strawberry (Fragaria vesca), a perennial herb":
 
-https://www.biorxiv.org/content/10.1101/2024.10.09.617376v1
+https://www.nature.com/articles/s42003-026-09539-5
 
 
 We acknowledge the assistance of GPT-4o and GPT-5 in the scripting and data analysis phases of our research.
